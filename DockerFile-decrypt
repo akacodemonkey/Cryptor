@@ -1,0 +1,17 @@
+FROM frapsoft/openssl
+
+COPY --from=creator:1.0 /keys/private.pem /keys/
+COPY --from=creator:1.0 /keys/passphrase /keys/
+
+
+COPY decrypt.sh /app/
+
+RUN apk update \
+    && apk upgrade \
+    && apk add bash \
+    && apk add unzip 
+
+
+CMD ["/app/decrypt.sh"]
+
+ENTRYPOINT ["/app/decrypt.sh"]

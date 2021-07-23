@@ -1,0 +1,8 @@
+FROM frapsoft/openssl AS creator
+WORKDIR /keys
+
+RUN echo pass1234 > /keys/passphrase \
+    && openssl genrsa -passout file:/keys/passphrase -des3 -out ./private.pem 4096 \
+    && openssl rsa -in ./private.pem  -passin file:/keys/passphrase -pubout -out ./public.pem \
+    && ls /keys -lah
+
