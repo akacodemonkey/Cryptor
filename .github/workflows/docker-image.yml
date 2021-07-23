@@ -16,3 +16,17 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: ./build.sh
+    - uses: actions/checkout@master
+    - name: Publish Encryptor to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: akacodemonkey/encryptor:1.0
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - uses: actions/checkout@master
+    - name: Publish Decryptor to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: akacodemonkey/decryptor:1.0
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
